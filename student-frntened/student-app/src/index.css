@@ -1,0 +1,258 @@
+/* table */
+.table-page {
+display: flex;
+justify-content: center;
+padding: 40px 20px;
+background: #f0f4f8;
+min-height: 100vh;
+}
+
+.table-container {
+width: 100%;
+max-width: 1200px;
+background: #f5f7fb;
+border-radius: 16px;
+padding: 24px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.table-title {
+color: #1976d2;
+margin-bottom: 24px;
+}
+
+.table-paper {
+border-radius: 16px;
+overflow: hidden;
+}
+
+.table-head {
+background-color: #1976d2;
+}
+
+.table-head-cell {
+color: white !important;
+font-weight: bold !important;
+}
+
+.table-row-even {
+background-color: #fafafa;
+}
+
+.table-row-odd {
+background-color: #ffffff;
+}
+
+.table-row-even:hover,
+.table-row-odd:hover {
+background-color: #e3f2fd !important;
+}
+
+.edit-btn {
+margin-right: 8px !important;
+}
+
+/* register */
+
+.register-page {
+min-height: 100vh;
+background: linear-gradient(135deg, #9ac3e6 0%, #5d00fe 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+}
+
+.register-card {
+background: #e3f2fd;
+padding: 40px;
+border-radius: 16px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+text-align: center;
+}
+
+.register-title {
+color: #1565c0;
+margin-bottom: 24px;
+}
+
+.register-field {
+margin-bottom: 16px !important;
+}
+
+.register-button {
+margin-top: 8px !important;
+padding: 12px !important;
+font-weight: bold !important;
+font-size: 16px !important;
+}
+
+/* about */
+
+.about-page {
+background-color: #f8fafc;
+min-height: 100vh;
+padding: 64px 24px;
+}
+
+.about-section {
+max-width: 1200px;
+margin: 0 auto 80px auto;
+gap: 48px;
+}
+
+.about-heading {
+color: #1565c0;
+margin-bottom: 24px;
+}
+
+.about-text {
+font-size: 18px;
+color: #4a5568;
+margin-bottom: 16px;
+line-height: 1.8;
+}
+
+.about-image {
+max-width: 500px;
+width: 100%;
+border-radius: 24px;
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Home */
+
+.home-page {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+
+}
+
+.home-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+gap: 48px;
+max-width: 1200px;
+width: 100%;
+}
+
+.home-content {
+flex: 1;
+}
+
+.home-heading {
+color: #1565c0;
+margin-bottom: 20px;
+line-height: 1.2;
+}
+
+.home-text {
+font-size: 18px;
+color: #4a5568;
+margin-bottom: 24px;
+line-height: 1.8;
+}
+
+.home-image-box {
+flex: 1;
+display: flex;
+justify-content: center;
+}
+
+.home-image {
+max-width: 500px;
+width: 100%;
+border-radius: 24px;
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+.home-container {
+flex-direction: row;
+}
+}
+
+
+/* Login */
+
+.login-page {
+min-height: 100vh;
+background-image: url('https://png.pngtree.com/background/20210711/original/pngtree-taobao-simple-style-educational-institution-banner-picture-image_1105122.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.3); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
+
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-title {
+color: #1565c0;
+margin-bottom: 24px;
+}
+
+.login-field {
+margin-bottom: 16px !important;
+}
+
+.login-button {
+margin-top: 8px !important;
+padding: 12px !important;
+font-weight: bold !important;
+font-size: 16px !important;
+}
+
+
+/* Feedback */
+
+.feedback-page {
+min-height: 100vh;
+background: linear-gradient(135deg, #9ac3e6 0%, #5d00fe 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+}
+
+.feedback-card {
+background: #e3f2fd;
+padding: 40px;
+border-radius: 16px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+text-align: center;
+}
+
+.feedback-title {
+color: #1565c0;
+margin-bottom: 24px;
+}
+
+.feedback-field {
+margin-bottom: 16px !important;
+}
+
+.feedback-button {
+margin-top: 8px !important;
+padding: 12px !important;
+font-weight: bold !important;
+font-size: 16px !important;
+}
