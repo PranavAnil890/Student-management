@@ -3,40 +3,53 @@ const router = express.Router();
 const userModels = require('../models/usermodels');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-router.use(express.json);
 
+// Verify JWT token
 function verifyToken(req, res, next) {
-  let token = req.headers.token || req.headers.authorization?.replace('Bearer ', '');
+  const token =
+    req.headers.token ||
+    req.headers.authorization?.replace('Bearer ', '');
 
   try {
     if (!token) {
-      return res.status(401).json({ message: 'Unauthorized request' });
+      return res.status(401).json({
+        message: 'Unauthorized request'
+      });
     }
 
     const payload = jwt.verify(token, 'secret');
-    if (!payload) {
-      return res.status(401).json({ message: 'Unauthorized request' });
-    }
 
     req.user = payload;
     next();
+
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
+    return res.status(401).json({
+      message: 'Invalid or expired token'
+    });
   }
 }
 
 
-// Get all users
-router.get('/',verifyToken, async (req, res) => {
+// ===============================
+// GET ALL USERS
+// ===============================
+router.get('/', verifyToken, async (req, res) => {
   try {
     const users = await userModels.find();
+
     res.json(users);
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 });
 
-// Get user by roll number
+
+// ===============================
+// GET USER BY ROLL NUMBER
+// ===============================
 router.get('/:rollnumber', verifyToken, async (req, res) => {
   try {
     const user = await userModels.findOne({
@@ -58,7 +71,10 @@ router.get('/:rollnumber', verifyToken, async (req, res) => {
   }
 });
 
-// Register user (PASSWORD HASHING)
+
+// ===============================
+// REGISTER USER
+// ===============================
 router.post('/add', async (req, res) => {
   try {
     const {
@@ -70,8 +86,24 @@ router.post('/add', async (req, res) => {
       password
     } = req.body;
 
+    // Check required fields
+    if (
+      !rollnumber ||
+      !candidatename ||
+      !course ||
+      !email ||
+      marks === undefined ||
+      !password
+    ) {
+      return res.status(400).json({
+        message: 'All fields are required'
+      });
+    }
+
     // Check if email already exists
-    const existingUser = await userModels.findOne({ email });
+    const existingUser = await userModels.findOne({
+      email: email
+    });
 
     if (existingUser) {
       return res.status(400).json({
@@ -82,6 +114,7 @@ router.post('/add', async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create user
     const user = new userModels({
       rollnumber,
       candidatename,
@@ -105,13 +138,25 @@ router.post('/add', async (req, res) => {
   }
 });
 
-// Login user (BCRYPT COMPARE)
+
+// ===============================
+// LOGIN USER
+// ===============================
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email
-    const user = await userModels.findOne({ email });
+    // Check fields
+    if (!email || !password) {
+      return res.status(400).json({
+        message: 'Email and password are required'
+      });
+    }
+
+    // Find user
+    const user = await userModels.findOne({
+      email: email
+    });
 
     if (!user) {
       return res.status(401).json({
@@ -119,8 +164,11 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Compare entered password with hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Compare password
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
       return res.status(401).json({
@@ -128,37 +176,49 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Create JWT payload
+    // JWT payload
     const payload = {
       id: user._id,
       email: user.email
     };
 
-    // Generate JWT token
-    const token = jwt.sign(payload, 'secret', {
-      expiresIn: '1h'
-    });
+    // Generate token
+    const token = jwt.sign(
+      payload,
+      'secret',
+      {
+        expiresIn: '1h'
+      }
+    );
 
+    // Successful login
     res.status(200).json({
       message: 'Login Successful',
       token: token,
       data: user
     });
 
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      message: err.message
+      message: error.message
     });
   }
 });
 
-// Update user
+
+// ===============================
+// UPDATE USER
+// ===============================
 router.put('/:rollnumber', verifyToken, async (req, res) => {
   try {
     const updateUser = await userModels.findOneAndUpdate(
-      { rollnumber: req.params.rollnumber },
+      {
+        rollnumber: req.params.rollnumber
+      },
       req.body,
-      { new: true }
+      {
+        new: true
+      }
     );
 
     if (!updateUser) {
@@ -176,7 +236,10 @@ router.put('/:rollnumber', verifyToken, async (req, res) => {
   }
 });
 
-// Delete user
+
+// ===============================
+// DELETE USER
+// ===============================
 router.delete('/:rollnumber', verifyToken, async (req, res) => {
   try {
     const deleteUser = await userModels.findOneAndDelete({
@@ -189,7 +252,10 @@ router.delete('/:rollnumber', verifyToken, async (req, res) => {
       });
     }
 
-    res.json(deleteUser);
+    res.json({
+      message: 'User deleted successfully',
+      data: deleteUser
+    });
 
   } catch (error) {
     res.status(500).json({
@@ -197,5 +263,6 @@ router.delete('/:rollnumber', verifyToken, async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;
