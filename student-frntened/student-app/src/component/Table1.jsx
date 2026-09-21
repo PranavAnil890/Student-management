@@ -27,7 +27,7 @@ const Table1 = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("http://localhost:3030/user")
+      .get("/user")
       .then((response) => {
         setData(response.data);
       })
@@ -39,7 +39,7 @@ const Table1 = () => {
   const handleDelete = async (rollnumber) => {
     try {
       await axiosInstance.delete(
-        `http://localhost:3030/user/${rollnumber}`
+        `/user/${rollnumber}`
       );
 
       setData((prevData) =>

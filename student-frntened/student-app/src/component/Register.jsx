@@ -27,7 +27,7 @@ e.preventDefault();
 
 try {
   const response = await axiosInstance.post(
-    'http://localhost:3030/user/add',
+    '/api/user/add',
     form
   );
 

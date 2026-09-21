@@ -35,7 +35,7 @@ e.preventDefault();
 
 try {
   // Login API
-  const response = await axiosInstance.post('/user/login', {
+  const response = await axiosInstance.post('/api/user/login', {
     email: form.Email,
     password: form.Password
   });
